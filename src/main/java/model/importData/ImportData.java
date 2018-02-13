@@ -1,14 +1,6 @@
 package model.importData;
 
-import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import UI.Components.AlertWindows;
 import model.importData.Data.Data;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -29,7 +21,6 @@ import java.util.Date;
 
 public class ImportData {
 
-
     WebDriver driver;
 
     public ImportData() {
@@ -49,9 +40,6 @@ public class ImportData {
 
     }
 
-
-
-
     public void deleteOld() {
         try {
             FileUtils.cleanDirectory(new File("C:\\Aktier"));
@@ -64,73 +52,66 @@ public class ImportData {
 
         WebElement timeField = driver.findElement(By.id("FromDate"));
         timeField.clear();
-
         Date referenceDate = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(referenceDate);
         c.add(Calendar.MONTH, -4);
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         timeField.sendKeys(format1.format(c.getTime()));
-
         WebElement nameField = driver.findElement(By.id("instSearchHistorical"));
-
         nameField.sendKeys(Data.stockName[1][0]);
-
-
-        Thread.sleep(300);
+        Thread.sleep(1000);
 
         try {
 
-            driver.findElement(By.xpath("//*[contains(text(), '" + Data.stockName[1][0] + "')]")).click();
-
+            driver.findElement(By.xpath("//*[contains(text(), '" + Data.stockName[1][1] + "')]")).click();
             driver.findElement(By.id("exportExcel")).click();
-
             Thread.sleep(10000);
-
-            /*Alert alert = new Alert(Alert.AlertType.WARNING, "I Warn You!", ButtonType.OK, ButtonType.CANCEL);
-            DialogPane root = alert.getDialogPane();
-
-            Stage dialogStage = new Stage(StageStyle.UTILITY);
-            root.getScene().setRoot(new Group());
-            root.setPadding(new Insets(10, 0, 10, 0));
-            Scene scene = new Scene(root);
-
-            dialogStage.setScene(scene);
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.setAlwaysOnTop(true);
-            dialogStage.setResizable(false);
-            dialogStage.show();*/
-
-
 
             for (int i = 2; i < 94; i++) {
 
                 try {
                     nameField.clear();
                     nameField.sendKeys(Data.stockName[i][0]);
-
                     Thread.sleep(500);
-
                     driver.findElement(By.xpath("//*[contains(text(), '" + Data.stockName[i][2] + "')]")).click();
                     driver.findElement(By.id("exportExcel")).click();
-
                 }
 
                 catch (Exception e) {
-                    System.out.println(e + Data.stockName[i][0] + " Hittades ej");
+                    try{
+                        //Trying again
+                        nameField.clear();
+                        nameField.sendKeys(Data.stockName[i][0]);
+                        Thread.sleep(1000);
+                        driver.findElement(By.xpath("//*[contains(text(), '" + Data.stockName[i][2] + "')]")).click();
+                        driver.findElement(By.id("exportExcel")).click();
+                    }
+                    catch (Exception d){
+
+                        if(AlertWindows.chooseBox("Download failed for: " + Data.stockName[i][0] + " / " + Data.stockName[i][2] +"/n " + "Would you like to restart download?") == true){
+                            driver.close();
+                            downloadAll();
+                        }else {
+
+                            driver.close();
+                            AlertWindows.infoBox("Download did not finished");
+                        }
+                    }
                     nameField.clear();
                 }
-
             }
 
             driver.close();
-          /*  dialogStage.close();*/
 
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("Kunde inte slutföra nedladdning");
             driver.close();
         }
+
+
+        //Check how many files
 
     }
 

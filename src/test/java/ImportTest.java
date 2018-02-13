@@ -38,8 +38,8 @@ public class ImportTest {
     public void testSpecific() throws  InterruptedException{
 
         //Enter the name that you wanna test here
-        String fullName = "Mr Green & Co";
-        String shortName = "MRG";
+        String fullName = "Sagax B";
+        String shortName = "SAGA-B";
 
         FirefoxProfile firefoxProfile = new FirefoxProfile();
         firefoxProfile.setPreference("browser.download.folderList", 2);

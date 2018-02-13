@@ -23,7 +23,10 @@ public class UiTests extends Application {
         stage.show();
 
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "I Warn You!", ButtonType.OK, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Downloading");
+        alert.setHeaderText("Downloading");
+        alert.setContentText("Downloading");
 
         Stage staged = (Stage) alert.getDialogPane().getScene().getWindow();
         staged.setAlwaysOnTop(true);

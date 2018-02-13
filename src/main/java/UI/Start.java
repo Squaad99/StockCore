@@ -16,8 +16,6 @@ public class Start extends Application {
 
     public void start(Stage stage){
 
-
-
         Pane pane = new Pane();
         Scene scene = new Scene(pane);
         stage.setMaximized(true);
@@ -26,17 +24,11 @@ public class Start extends Application {
         stage.show();
 
         loadUIObjects(pane);
-
     }
 
     public void loadUIObjects(Pane pane){
 
-
         MenuUI menuUI = new MenuUI(pane);
-
-
-
-
     }
 
 }
