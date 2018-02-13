@@ -1,4 +1,4 @@
-package Data;
+package model.importData.Data;
 
 
 import model.Stock;
@@ -15,8 +15,8 @@ public class Data {
 
     public Data() {
 
-        stockName[0][0] = "AAK";
-        stockName[0][1] = "AAK";
+        stockName[0][0] = "";
+        stockName[0][1] = "";
 
         stockName[1][0] = "ABB Ltd";
         stockName[1][1] = "ABB";

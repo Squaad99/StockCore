@@ -1,6 +1,6 @@
 
-import Data.Data;
-import importData.ImportData;
+import model.importData.Data.Data;
+import model.importData.ImportData;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -16,8 +16,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import static Data.Data.stockName;
 
 /**
  * Created by Henrik Berglund on 2018-02-01.

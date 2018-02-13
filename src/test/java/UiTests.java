@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -22,11 +23,11 @@ public class UiTests extends Application {
         stage.show();
 
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("I have a great message for you!");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "I Warn You!", ButtonType.OK, ButtonType.CANCEL);
 
+        Stage staged = (Stage) alert.getDialogPane().getScene().getWindow();
+        staged.setAlwaysOnTop(true);
+        staged.toFront();
 
         alert.showAndWait();
 

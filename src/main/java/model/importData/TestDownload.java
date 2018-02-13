@@ -1,4 +1,4 @@
-package importData;
+package model.importData;
 
 /**
  * Created by Henrik Berglund on 2018-02-01.
